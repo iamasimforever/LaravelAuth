@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "9569cd1d-3a98-4a66-b443-754e93b4ea6a",
+		"name": "LaravelAuth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5a2ebb77-b55f-4351-8dba-e86c2d5ffba8",
+						"exec": [
+							"console.log(pm.response.json());",
+							"var responseData = pm.response.json();",
+							"if(!responseData.errors){",
+							"    pm.environment.set(\"access_token\",responseData.data.token);",
+							"}else{",
+							"    pm.environment.set(\"access_token\",\"N/A\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}:{{port}}/api/auth/login?name=Asim&email=test1@test.com&password=asimasim",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Asim"
+						},
+						{
+							"key": "email",
+							"value": "test1@test.com"
+						},
+						{
+							"key": "password",
+							"value": "asimasim"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ae16919-8a42-460f-9ab7-4b08038c86bd",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1f7f3b05-1630-47a1-9267-1a7c6b281f54",
+						"exec": [
+							"console.log(pm.response.json());",
+							"var responseData = pm.response.json();",
+							"if(!responseData.errors){",
+							"    pm.environment.set(\"access_token\",responseData.data.token);",
+							"}else{",
+							"    pm.environment.set(\"access_token\",\"N/A\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}:{{port}}/api/auth/register?name=Asim&email=test@test.com&password=asimasim&password_confirmation=asimasim",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Asim"
+						},
+						{
+							"key": "email",
+							"value": "test@test.com"
+						},
+						{
+							"key": "password",
+							"value": "asimasim"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "asimasim"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}:{{port}}/api/me",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"me"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Asim",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "test@test.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "asimasim",
+							"disabled": true
+						},
+						{
+							"key": "password_confirmation",
+							"value": "asimasim",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/api/auth/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
